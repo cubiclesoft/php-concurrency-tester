@@ -17,7 +17,7 @@ Features
 Getting Started
 ---------------
 
-Write a script that communicates with a TCP/IP service similar to [this one]().
+Write a script that communicates with a TCP/IP service similar to [this one](https://github.com/cubiclesoft/php-license-server/blob/master/concurrency_test.php).
 
 Run `run_tests.php`:
 
