@@ -3,7 +3,7 @@ PHP-based Concurrency Tester
 
 A simple program that executes another PHP command-line script and (hopefully) collects output in CSV format for later analysis.  Mostly for performance testing/verifying localhost TCP/IP servers.
 
-[![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/)
+[![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/) [![Discord](https://img.shields.io/discord/777282089980526602?label=chat&logo=discord)](https://cubiclesoft.com/product-support/github/)
 
 Features
 --------
