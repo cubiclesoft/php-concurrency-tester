@@ -1,6 +1,6 @@
 <?php
 	// PHP concurrency tester primarily for custom TCP/IP services.
-	// (C) 2019 CubicleSoft.  All Rights Reserved.
+	// (C) 2021 CubicleSoft.  All Rights Reserved.
 
 	if (!isset($_SERVER["argc"]) || !$_SERVER["argc"])
 	{
@@ -33,7 +33,7 @@
 		echo "The custom TCP/IP service concurrency testing command-line tool\n";
 		echo "Purpose:  Run a PHP script that communicates with a TCP/IP server and collect output in CSV format for analysis.\n";
 		echo "\n";
-		echo "Syntax:  " . $args["file"] . " [options] PHPFile ConcurrencyLevel\n";
+		echo "Syntax:  " . $args["file"] . " [options] ConcurrencyLevel PHPFile [args]\n";
 		echo "Options:\n";
 		echo "\t-h   A header in CSV format.  Will be output as-is.\n";
 		echo "\n";
@@ -43,15 +43,17 @@
 		exit();
 	}
 
-	$phpfile = realpath($args["params"][0]);
-	if ($phpfile === false)  CLI::DisplayError("The file '" . $args["params"][0] . "' does not exist.");
+	$phpfile = realpath($args["params"][1]);
+	if ($phpfile === false)  CLI::DisplayError("The file '" . $args["params"][1] . "' does not exist.");
 
 	// Queue up the specified number of concurrent processes.
 	$starttime = time() + 5;
+	$cmd = escapeshellarg(PHP_BINARY) . " " . escapeshellarg($phpfile);
+	for ($x = 2; $x < count($args["params"]); $x++)  $cmd .= " " . escapeshellarg($args["params"][$x]);
+	$cmd .= " " . $starttime;
 	$procs = array();
-	for ($x = 0; $x < (int)$args["params"][1]; $x++)
+	for ($x = 0; $x < (int)$args["params"][0]; $x++)
 	{
-		$cmd = escapeshellarg(PHP_BINARY) . " " . escapeshellarg($phpfile) . " " . $starttime;
 		$result = ProcessHelper::StartProcess($cmd, array("stdin" => false, "stderr" => false));
 		if (!$result["success"])
 		{
